@@ -31,16 +31,48 @@ document.addEventListener('DOMContentLoaded', () => {
     initCounterAnimation();
 });
 
-// ====== ANNOUNCEMENT BAR ROTATION ======
+// ====== ANNOUNCEMENT BAR ROTATION (Cava style with pause/play) ======
 function initAnnouncementBar() {
     const slides = document.querySelectorAll('.announcement-slide');
+    const pauseBtn = document.getElementById('announcement-pause');
+    const playBtn = document.getElementById('announcement-play');
     let current = 0;
+    let interval;
+    let isPaused = false;
 
-    setInterval(() => {
+    function nextSlide() {
         slides[current].classList.remove('active');
         current = (current + 1) % slides.length;
         slides[current].classList.add('active');
-    }, 3000);
+    }
+
+    function startAutoPlay() {
+        interval = setInterval(nextSlide, 3000);
+    }
+
+    function stopAutoPlay() {
+        clearInterval(interval);
+    }
+
+    if (pauseBtn) {
+        pauseBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            isPaused = true;
+            pauseBtn.classList.add('hidden');
+            playBtn.classList.remove('hidden');
+        });
+    }
+
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            startAutoPlay();
+            isPaused = false;
+            playBtn.classList.add('hidden');
+            pauseBtn.classList.remove('hidden');
+        });
+    }
+
+    startAutoPlay();
 }
 
 // ====== HERO BANNER CAROUSEL ======
@@ -115,7 +147,7 @@ function initHeader() {
     });
 }
 
-// ====== RENDER PRODUCTS ======
+// ====== RENDER PRODUCTS (Cava + BlissClub style) ======
 function renderProducts(category) {
     const grid = document.getElementById('products-grid');
     const filtered = category === 'all' ? products : products.filter(p => p.category === category);
@@ -125,6 +157,7 @@ function renderProducts(category) {
         return `
             <div class="product-card" data-category="${product.category}">
                 <span class="product-tag ${product.tag}">${getTagLabel(product.tag)}</span>
+                <div class="product-discount-badge">${discount}% Off</div>
                 <div class="product-image">
                     <img src="${product.image}" alt="${product.name}" loading="lazy"
                          onerror="this.parentElement.style.background='linear-gradient(135deg, #f8f6f3, #e8e4df)'; this.style.display='none';">
@@ -132,14 +165,34 @@ function renderProducts(category) {
                 <div class="product-info">
                     <p class="product-name">${product.name}</p>
                     <div class="product-price">
+                        <span class="price-original">MRP ₹${product.originalPrice.toLocaleString()}</span>
                         <span class="price-current">₹${product.price.toLocaleString()}</span>
-                        <span class="price-original">₹${product.originalPrice.toLocaleString()}</span>
-                        <span class="price-discount">${discount}% off</span>
+                    </div>
+                    <div class="product-sizes">
+                        <button class="size-btn">S</button>
+                        <button class="size-btn">M</button>
+                        <button class="size-btn active">L</button>
+                        <button class="size-btn">XL</button>
+                        <button class="size-btn">XXL</button>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-add-btn">Add to Cart</button>
+                        <button class="product-quick-view">Quick View</button>
                     </div>
                 </div>
             </div>
         `;
     }).join('');
+
+    // Add size button interactivity
+    grid.querySelectorAll('.product-card').forEach(card => {
+        card.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                card.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    });
 }
 
 function getTagLabel(tag) {

@@ -12,16 +12,31 @@
 </head>
 <body>
 
-    <!-- ====== SECTION 1: ANNOUNCEMENT BAR ====== -->
+    <!-- ====== SECTION 1: ANNOUNCEMENT BAR (Cava style) ====== -->
     <div class="announcement-bar" id="announcement-bar">
+        <button class="announcement-pause" id="announcement-pause" aria-label="Pause slideshow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        </button>
         <div class="announcement-slider">
-            <div class="announcement-slide active">7 Days Hassle-Free Exchange</div>
-            <div class="announcement-slide">Extra 10% on your first order — Use code: <strong>iVastra10</strong></div>
-            <div class="announcement-slide">Free Shipping on orders above ₹999</div>
+            <div class="announcement-slide active">
+                <a href="#">Upto 40% off + Extra 2% off on all prepaid orders</a>
+            </div>
+            <div class="announcement-slide">
+                <a href="#">7 Days — Hassle Free Exchange</a>
+            </div>
+            <div class="announcement-slide">
+                <a href="#">Extra 10% on your first order | Use code: <strong>iVastra10</strong></a>
+            </div>
+            <div class="announcement-slide">
+                <a href="#">Free Shipping on orders above ₹999</a>
+            </div>
         </div>
+        <button class="announcement-play hidden" id="announcement-play" aria-label="Play slideshow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
     </div>
 
-    <!-- ====== SECTION 2: HEADER / NAVIGATION ====== -->
+    <!-- ====== SECTION 2: HEADER / NAVIGATION (Cava + BlissClub style) ====== -->
     <header class="header" id="header">
         <div class="header-container">
             <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
@@ -36,29 +51,108 @@
 
             <nav class="main-nav" id="main-nav">
                 <ul class="nav-list">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Everyday
-                            <span class="nav-subtitle">For mornings that begin at home and days that go everywhere.</span>
-                        </a>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">Everyday</a>
+                        <div class="mega-menu">
+                            <div class="mega-col">
+                                <h4>Shop by Category</h4>
+                                <ul>
+                                    <li><a href="#">All Products</a></li>
+                                    <li><a href="#">Kurtas</a></li>
+                                    <li><a href="#">Shirts</a></li>
+                                    <li><a href="#">T-Shirts</a></li>
+                                    <li><a href="#">Trousers</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>Shop by Fabric</h4>
+                                <ul>
+                                    <li><a href="#">Cotton</a></li>
+                                    <li><a href="#">Linen</a></li>
+                                    <li><a href="#">Silk Blend</a></li>
+                                    <li><a href="#">Khadi</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col mega-desc">
+                                <p class="mega-tagline">Ghar — Comfort, redefined.</p>
+                                <p>For mornings that begin at home and days that go everywhere.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">Festive</a>
+                        <div class="mega-menu">
+                            <div class="mega-col">
+                                <h4>Collections</h4>
+                                <ul>
+                                    <li><a href="#">Festive Kurtas</a></li>
+                                    <li><a href="#">Embroidered Sets</a></li>
+                                    <li><a href="#">Silk Kurta Sets</a></li>
+                                    <li><a href="#">Nehru Jackets</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>Shop by Occasion</h4>
+                                <ul>
+                                    <li><a href="#">Diwali</a></li>
+                                    <li><a href="#">Holi</a></li>
+                                    <li><a href="#">Eid</a></li>
+                                    <li><a href="#">Puja</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col mega-desc">
+                                <p class="mega-tagline">Tyohar — Celebrate in style.</p>
+                                <p>For every celebration, big or small.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">Weddings</a>
+                        <div class="mega-menu">
+                            <div class="mega-col">
+                                <h4>Wedding Collection</h4>
+                                <ul>
+                                    <li><a href="#">Sherwanis</a></li>
+                                    <li><a href="#">Bandhgala</a></li>
+                                    <li><a href="#">Wedding Kurta Sets</a></li>
+                                    <li><a href="#">Brocade Waistcoats</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <h4>By Role</h4>
+                                <ul>
+                                    <li><a href="#">Groom</a></li>
+                                    <li><a href="#">Groomsmen</a></li>
+                                    <li><a href="#">Guest</a></li>
+                                    <li><a href="#">Family</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col mega-desc">
+                                <p class="mega-tagline">Shaadi — For every role you'll play.</p>
+                                <p>From the first invitation to the last farewell.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#" class="nav-link">Tailored</a>
+                        <div class="mega-menu">
+                            <div class="mega-col">
+                                <h4>Custom Fit</h4>
+                                <ul>
+                                    <li><a href="#">Custom Kurtas</a></li>
+                                    <li><a href="#">Custom Shirts</a></li>
+                                    <li><a href="#">Custom Suits</a></li>
+                                    <li><a href="#">Custom Sherwanis</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-col mega-desc">
+                                <p class="mega-tagline">Made around your fit.</p>
+                                <p>Crafted around you, stitched for your moment.</p>
+                            </div>
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Festive
-                            <span class="nav-subtitle">For every celebration, big or small.</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Weddings
-                            <span class="nav-subtitle">From the first invitation to the last farewell.</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Tailored
-                            <span class="nav-subtitle">Crafted around you, stitched for your moment.</span>
-                        </a>
+                        <a href="#" class="nav-link nav-highlight">Sale</a>
                     </li>
                 </ul>
             </nav>
@@ -70,12 +164,12 @@
                         <path d="m21 21-4.35-4.35"></path>
                     </svg>
                 </button>
-                <button class="header-icon-btn" aria-label="Account">
+                <a href="#" class="header-icon-btn" aria-label="Account">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                </button>
+                </a>
                 <button class="header-icon-btn cart-btn" aria-label="Cart">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -227,7 +321,7 @@
         </div>
     </section>
 
-    <!-- ====== SECTION 7: PRODUCTS / BESTSELLERS ====== -->
+    <!-- ====== SECTION 7: PRODUCTS / BESTSELLERS (Cava + BlissClub style) ====== -->
     <section class="products-section" id="products">
         <div class="container">
             <div class="products-header">
@@ -237,53 +331,68 @@
             <div class="products-scroll-container">
                 <button class="scroll-btn scroll-left" aria-label="Scroll left">‹</button>
                 <div class="products-grid" id="products-grid">
-                    <!-- Product cards will be inserted by JS -->
+                    <!-- Product cards inserted by JS with Cava-style layout:
+                         - % Off badge
+                         - New In / Best Seller / Sold Out tags
+                         - Size selector (S, M, L, XL, XXL)
+                         - Color swatches
+                         - MRP strikethrough + sale price
+                         - Quick View + ADD TO CART
+                    -->
                 </div>
                 <button class="scroll-btn scroll-right" aria-label="Scroll right">›</button>
             </div>
         </div>
     </section>
 
-    <!-- ====== SECTION 8: CUSTOMERS / OUR REAL HEROES ====== -->
+    <!-- ====== SECTION 8: CUSTOMERS / TESTIMONIALS (BlissClub style) ====== -->
     <section class="heroes-section" id="heroes">
         <div class="container">
-            <h2 class="section-title">Our Real Heroes</h2>
-            <p class="section-subtitle">Real men. Real style. Real iVastra.</p>
+            <h2 class="section-title">Real Men, Real Words</h2>
+            <p class="section-subtitle">Tried and tested by our real heroes.</p>
             <div class="heroes-grid">
-                <div class="hero-card">
-                    <div class="hero-card-image">
-                        <img src="images/heroes/customer-1.svg" alt="Customer wearing iVastra" loading="lazy">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/heroes/customer-1.svg" alt="Zubair Kalsia" loading="lazy">
                     </div>
-                    <div class="hero-card-info">
+                    <div class="testimonial-content">
                         <h4>Zubair Kalsia</h4>
-                        <p>Tech Professional, Bangalore</p>
+                        <p class="testimonial-city">Bangalore</p>
+                        <p class="testimonial-text">Love the fit and quality! Ordered one kurta to try and ended up buying 4 more. The fabric feels premium and the stitching is solid. Wish they had more colors!</p>
+                        <a href="#" class="testimonial-product">Classic Linen Kurta</a>
                     </div>
                 </div>
-                <div class="hero-card">
-                    <div class="hero-card-image">
-                        <img src="images/heroes/customer-2.svg" alt="Customer wearing iVastra" loading="lazy">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/heroes/customer-2.svg" alt="Rakshay Dhariwal" loading="lazy">
                     </div>
-                    <div class="hero-card-info">
+                    <div class="testimonial-content">
                         <h4>Rakshay Dhariwal</h4>
-                        <p>Entrepreneur, Mumbai</p>
+                        <p class="testimonial-city">Mumbai</p>
+                        <p class="testimonial-text">Perfect fit for Indian body types. Finally a brand that understands our proportions. The festive kurta set was a hit at my brother's wedding.</p>
+                        <a href="#" class="testimonial-product">Festive Silk Sherwani</a>
                     </div>
                 </div>
-                <div class="hero-card">
-                    <div class="hero-card-image">
-                        <img src="images/heroes/customer-3.svg" alt="Customer wearing iVastra" loading="lazy">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/heroes/customer-3.svg" alt="Arjun Mehta" loading="lazy">
                     </div>
-                    <div class="hero-card-info">
+                    <div class="testimonial-content">
                         <h4>Arjun Mehta</h4>
-                        <p>Designer, Delhi</p>
+                        <p class="testimonial-city">Delhi</p>
+                        <p class="testimonial-text">The Nehru jacket is incredibly well-crafted. Wore it to 3 events and got compliments every single time. Real value for money.</p>
+                        <a href="#" class="testimonial-product">Nehru Jacket - Navy</a>
                     </div>
                 </div>
-                <div class="hero-card">
-                    <div class="hero-card-image">
-                        <img src="images/heroes/customer-4.svg" alt="Customer wearing iVastra" loading="lazy">
+                <div class="testimonial-card">
+                    <div class="testimonial-avatar">
+                        <img src="images/heroes/customer-4.svg" alt="Vikram Singh" loading="lazy">
                     </div>
-                    <div class="hero-card-info">
+                    <div class="testimonial-content">
                         <h4>Vikram Singh</h4>
-                        <p>Consultant, Hyderabad</p>
+                        <p class="testimonial-city">Hyderabad</p>
+                        <p class="testimonial-text">Best everyday kurta I own. Lightweight, breathable and looks sharp for office or casual outings. Already ordered 2 more!</p>
+                        <a href="#" class="testimonial-product">Everyday Cotton Shirt</a>
                     </div>
                 </div>
             </div>
@@ -366,13 +475,21 @@
         </div>
     </section>
 
-    <!-- ====== SECTION 12: FOOTER ====== -->
+    <!-- ====== SECTION 12: FOOTER (Cava + BlissClub style) ====== -->
     <footer class="footer" id="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col footer-brand">
                     <h3 class="footer-logo">iVastra</h3>
                     <p>Premium Indian menswear crafted for Indian bodies. Where tradition meets modern comfort.</p>
+                    <div class="footer-newsletter">
+                        <h4>Sign up and save</h4>
+                        <p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
+                        <form class="newsletter-form" id="newsletter-form">
+                            <input type="email" placeholder="Enter your email" required aria-label="Email for newsletter">
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
                     <div class="social-links">
                         <a href="#" aria-label="Instagram">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -384,51 +501,61 @@
                                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                             </svg>
                         </a>
-                        <a href="#" aria-label="Twitter">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-                            </svg>
-                        </a>
                         <a href="#" aria-label="YouTube">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/>
                             </svg>
                         </a>
+                        <a href="#" aria-label="Pinterest">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 12a4 4 0 1 1 8 0c0 2.5-1.5 4.5-3 5.5"/><path d="M9.5 15.5L8 21"/><circle cx="12" cy="12" r="10"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h4>Shop</h4>
+                    <h4>Explore</h4>
                     <ul>
-                        <li><a href="#">All Products</a></li>
-                        <li><a href="#">Citywear</a></li>
-                        <li><a href="#">Festivewear</a></li>
-                        <li><a href="#">Weddingwear</a></li>
-                        <li><a href="#">Tailored</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Help</h4>
-                    <ul>
-                        <li><a href="#">Returns & Exchanges</a></li>
-                        <li><a href="#">Shipping Policy</a></li>
-                        <li><a href="#">Track Order</a></li>
-                        <li><a href="#">Size Guide</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>About</h4>
-                    <ul>
+                        <li><a href="#">About Us</a></li>
                         <li><a href="#">Our Story</a></li>
                         <li><a href="#">Craftsmanship</a></li>
                         <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Store Locator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Policies & Terms</h4>
+                    <ul>
+                        <li><a href="#">Return & Exchange Policy</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Track Your Order</a></li>
+                        <li><a href="#">Size Guide</a></li>
                     </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Reach Us At</h4>
+                    <div class="footer-address">
+                        <p>iVastra Pvt. Ltd.<br>
+                        India</p>
+                        <p class="footer-contact">
+                            <strong>Email:</strong> <a href="mailto:hello@ivastra.com">hello@ivastra.com</a>
+                        </p>
+                        <p class="footer-contact">
+                            <strong>Phone:</strong> <a href="tel:+919876543210">+91 98765 43210</a>
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 iVastra. All rights reserved. | Made with ❤️ in India</p>
+                <p>© 2026 iVastra Pvt. Ltd. All rights reserved. | Made with ❤️ in India</p>
             </div>
         </div>
     </footer>
