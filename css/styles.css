@@ -863,6 +863,11 @@ button {
     color: var(--primary);
 }
 
+/* ====== SECTION 7B: WOMEN'S EDIT ====== */
+.women-section {
+    background: var(--bg-warm);
+}
+
 /* ====== SECTION 8: TESTIMONIALS (BlissClub style) ====== */
 .heroes-section {
     padding: 80px 0;

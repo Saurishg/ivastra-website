@@ -17,6 +17,19 @@ const products = [
     { name: "Crimson Bloom Festive Kurta", price: 2499, originalPrice: 3799, tag: "new", category: "topwear", image: "images/products/product-13.jpg" },
     { name: "Amber Brocade Kurta", price: 2799, originalPrice: 3999, tag: "deal", category: "topwear", image: "images/products/product-14.jpg" },
     { name: "Golden Brocade Bandhgala", price: 5499, originalPrice: 7999, tag: "bestseller", category: "outerwear", image: "images/products/product-15.jpg" },
+    { name: "Navy Blue Casual Kurta", price: 1399, originalPrice: 2099, tag: "deal", category: "topwear", image: "images/products/product-16.jpg" },
+    { name: "Maroon Brocade Waistcoat", price: 2799, originalPrice: 3999, tag: "new", category: "outerwear", image: "images/products/product-17.jpg" },
+    { name: "Scarlet Floral Festive Kurta", price: 2599, originalPrice: 3899, tag: "bestseller", category: "topwear", image: "images/products/product-18.jpg" },
+];
+
+// Women's Edit Product Data
+const womenProducts = [
+    { name: "Marigold Polka Cotton Saree", price: 2499, originalPrice: 3799, tag: "bestseller", image: "images/products/women-1.jpg" },
+    { name: "Sunflower Handloom Saree", price: 2799, originalPrice: 4199, tag: "new", image: "images/products/women-2.jpg" },
+    { name: "Emerald Silk Saree", price: 3499, originalPrice: 4999, tag: "bestseller", image: "images/products/women-3.jpg" },
+    { name: "Ivory Floral Festive Saree", price: 3299, originalPrice: 4799, tag: "new", image: "images/products/women-4.jpg" },
+    { name: "Monochrome Printed Saree", price: 2299, originalPrice: 3499, tag: "deal", image: "images/products/women-5.jpg" },
+    { name: "Golden Blossom Saree", price: 2999, originalPrice: 4499, tag: "bestseller", image: "images/products/women-6.jpg" },
 ];
 
 // DOM Ready
@@ -26,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initHeader();
     renderProducts('all');
+    renderWomenProducts();
     initProductScroll();
     initShopByTabs();
     initCounterAnimation();
@@ -205,21 +219,64 @@ function getTagLabel(tag) {
     return labels[tag] || tag;
 }
 
-// ====== PRODUCT SCROLL BUTTONS ======
+// ====== RENDER WOMEN'S EDIT PRODUCTS ======
+function renderWomenProducts() {
+    const grid = document.getElementById('women-grid');
+    if (!grid) return;
+
+    grid.innerHTML = womenProducts.map(product => {
+        const discount = Math.round((1 - product.price / product.originalPrice) * 100);
+        return `
+            <div class="product-card">
+                <span class="product-tag ${product.tag}">${getTagLabel(product.tag)}</span>
+                <div class="product-discount-badge">${discount}% Off</div>
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}" loading="lazy"
+                         onerror="this.parentElement.style.background='linear-gradient(135deg, #f8f6f3, #e8e4df)'; this.style.display='none';">
+                </div>
+                <div class="product-info">
+                    <p class="product-name">${product.name}</p>
+                    <div class="product-price">
+                        <span class="price-original">MRP ₹${product.originalPrice.toLocaleString()}</span>
+                        <span class="price-current">₹${product.price.toLocaleString()}</span>
+                    </div>
+                    <div class="product-sizes">
+                        <button class="size-btn">XS</button>
+                        <button class="size-btn">S</button>
+                        <button class="size-btn active">M</button>
+                        <button class="size-btn">L</button>
+                        <button class="size-btn">XL</button>
+                    </div>
+                    <div class="product-actions">
+                        <button class="product-add-btn">Add to Cart</button>
+                        <button class="product-quick-view">Quick View</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    grid.querySelectorAll('.product-card').forEach(card => {
+        card.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                card.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    });
+}
+
+// ====== PRODUCT SCROLL BUTTONS (handles all product carousels) ======
 function initProductScroll() {
-    const grid = document.getElementById('products-grid');
-    const leftBtn = document.querySelector('.scroll-left');
-    const rightBtn = document.querySelector('.scroll-right');
-
-    if (leftBtn && rightBtn) {
-        leftBtn.addEventListener('click', () => {
-            grid.scrollBy({ left: -300, behavior: 'smooth' });
-        });
-
-        rightBtn.addEventListener('click', () => {
-            grid.scrollBy({ left: 300, behavior: 'smooth' });
-        });
-    }
+    document.querySelectorAll('.products-scroll-container').forEach(container => {
+        const grid = container.querySelector('.products-grid');
+        const leftBtn = container.querySelector('.scroll-left');
+        const rightBtn = container.querySelector('.scroll-right');
+        if (grid && leftBtn && rightBtn) {
+            leftBtn.addEventListener('click', () => grid.scrollBy({ left: -300, behavior: 'smooth' }));
+            rightBtn.addEventListener('click', () => grid.scrollBy({ left: 300, behavior: 'smooth' }));
+        }
+    });
 }
 
 // ====== SHOP BY TABS ======
