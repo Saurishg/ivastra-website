@@ -868,74 +868,84 @@ button {
     background: var(--bg-warm);
 }
 
-/* ====== SECTION 8: TESTIMONIALS (BlissClub style) ====== */
-.heroes-section {
+/* ====== TESTIMONIALS (BlissClub style carousel) ====== */
+.testimonials-section {
     padding: 80px 0;
     background: var(--bg-warm);
 }
 
-.heroes-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+.testimonials-eyebrow {
+    text-align: center;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
 }
 
-.testimonial-card {
+.testimonials-carousel {
     display: flex;
-    gap: 20px;
-    padding: 24px;
-    background: var(--bg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    transition: transform var(--transition);
+    gap: 32px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 40px 0 20px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.testimonials-carousel::-webkit-scrollbar { display: none; }
+
+.testimonial-slide {
+    min-width: 300px;
+    max-width: 300px;
+    flex-shrink: 0;
+    text-align: center;
+    scroll-snap-align: center;
+    padding: 0 8px;
 }
 
-.testimonial-card:hover {
-    transform: translateY(-4px);
-}
-
-.testimonial-avatar {
-    width: 64px;
-    height: 64px;
+.testimonial-photo {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     overflow: hidden;
-    flex-shrink: 0;
-    background: var(--primary-light);
+    margin: 0 auto 16px;
+    border: 3px solid var(--accent);
 }
-
-.testimonial-avatar img {
+.testimonial-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.testimonial-content h4 {
+.testimonial-name {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--primary);
     margin-bottom: 2px;
 }
 
 .testimonial-city {
     font-size: 0.8rem;
     color: var(--text-muted);
-    margin-bottom: 10px;
+    margin-bottom: 14px;
 }
 
-.testimonial-text {
+.testimonial-review {
     font-size: 0.9rem;
     color: var(--text-light);
-    line-height: 1.6;
-    margin-bottom: 10px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    font-style: italic;
 }
 
-.testimonial-product {
-    font-size: 0.8rem;
+.testimonial-product-link {
+    font-size: 0.85rem;
     color: var(--accent);
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: underline;
+    text-underline-offset: 3px;
 }
-
-.testimonial-product:hover {
+.testimonial-product-link:hover {
     color: var(--accent-hover);
 }
 
@@ -1222,9 +1232,6 @@ button {
     .categories-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    .heroes-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
     .why-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 24px;
@@ -1288,15 +1295,7 @@ button {
         display: grid;
     }
 
-    .heroes-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
 
-    .testimonial-card {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 
     .hero-banner {
         height: 60vh;
@@ -1312,10 +1311,6 @@ button {
         aspect-ratio: 2/3;
     }
 
-    .heroes-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
 
     .why-grid {
         grid-template-columns: 1fr;

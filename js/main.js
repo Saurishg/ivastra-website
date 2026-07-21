@@ -546,7 +546,7 @@ function initBackToTop() {
 
 // ====== SCROLL REVEAL ======
 function initScrollReveal() {
-    const els = document.querySelectorAll('.reveal, .categories-section, .products-section, .lookbook-section, .heroes-section, .why-section, .facts-section');
+    const els = document.querySelectorAll('.reveal, .categories-section, .products-section, .lookbook-section, .testimonials-section, .why-section, .facts-section');
     const io = new IntersectionObserver((entries) => {
         entries.forEach(e => {
             if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); }
