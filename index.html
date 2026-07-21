@@ -158,7 +158,7 @@
             </nav>
 
             <div class="header-actions">
-                <button class="header-icon-btn" aria-label="Search">
+                <button class="header-icon-btn" id="search-btn" aria-label="Search">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.35-4.35"></path>
@@ -170,7 +170,7 @@
                         <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                 </a>
-                <button class="header-icon-btn cart-btn" aria-label="Cart">
+                <button class="header-icon-btn cart-btn" id="cart-btn" aria-label="Cart">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -304,24 +304,6 @@
                         <p>Custom-made, just for you</p>
                     </div>
                 </a>
-                <a href="#women" class="category-card">
-                    <div class="category-image">
-                        <img src="images/categories/sarees.jpg" alt="Sarees Collection" loading="lazy">
-                    </div>
-                    <div class="category-info">
-                        <h3>Sarees</h3>
-                        <p>Handwoven elegance for her</p>
-                    </div>
-                </a>
-                <a href="#women" class="category-card">
-                    <div class="category-image">
-                        <img src="images/categories/womens-festive.jpg" alt="Women's Festive Collection" loading="lazy">
-                    </div>
-                    <div class="category-info">
-                        <h3>Women's Festive</h3>
-                        <p>Celebration-ready ethnic wear</p>
-                    </div>
-                </a>
             </div>
         </div>
     </section>
@@ -363,24 +345,39 @@
         </div>
     </section>
 
-    <!-- ====== SECTION 7B: THE WOMEN'S EDIT ====== -->
-    <section class="products-section women-section" id="women">
+    <!-- ====== SECTION 7B: LOOKBOOK ====== -->
+    <section class="lookbook-section reveal" id="lookbook">
         <div class="container">
-            <div class="products-header">
-                <h2 class="section-title">The Women's Edit</h2>
-                <a href="#" class="view-all-link">View All →</a>
-            </div>
-            <div class="products-scroll-container">
-                <button class="scroll-btn scroll-left" data-target="women-grid" aria-label="Scroll left">‹</button>
-                <div class="products-grid" id="women-grid">
-                    <!-- Women's product cards inserted by JS -->
-                </div>
-                <button class="scroll-btn scroll-right" data-target="women-grid" aria-label="Scroll right">›</button>
+            <h2 class="section-title">The Lookbook</h2>
+            <p class="section-subtitle">Styled for every occasion — see how it's worn.</p>
+            <div class="lookbook-grid">
+                <a href="#products" class="lookbook-item lookbook-tall">
+                    <img src="images/lookbook/look-1.jpg" alt="Street style kurta look" loading="lazy">
+                    <span class="lookbook-caption">Everyday Street</span>
+                </a>
+                <a href="#products" class="lookbook-item">
+                    <img src="images/lookbook/look-2.jpg" alt="Casual indoor look" loading="lazy">
+                    <span class="lookbook-caption">Casual Comfort</span>
+                </a>
+                <a href="#products" class="lookbook-item">
+                    <img src="images/lookbook/look-3.jpg" alt="Festive look" loading="lazy">
+                    <span class="lookbook-caption">Festive Edit</span>
+                </a>
+                <a href="#products" class="lookbook-item">
+                    <img src="images/lookbook/look-4.jpg" alt="Golden festive look" loading="lazy">
+                    <span class="lookbook-caption">Celebration</span>
+                </a>
+                <a href="#products" class="lookbook-item lookbook-tall">
+                    <img src="images/lookbook/look-6.jpg" alt="Wedding look" loading="lazy">
+                    <span class="lookbook-caption">Wedding Ready</span>
+                </a>
+                <a href="#products" class="lookbook-item">
+                    <img src="images/lookbook/look-5.jpg" alt="Bandhgala look" loading="lazy">
+                    <span class="lookbook-caption">Bandhgala</span>
+                </a>
             </div>
         </div>
     </section>
-
-    <!-- ====== SECTION 8: CUSTOMERS / TESTIMONIALS (BlissClub style) ====== -->
     <section class="heroes-section" id="heroes">
         <div class="container">
             <h2 class="section-title">Real Men, Real Words</h2>
@@ -594,6 +591,71 @@
             </div>
         </div>
     </footer>
+
+    <!-- ====== CART DRAWER ====== -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping cart">
+        <div class="cart-drawer-header">
+            <h3>Your Bag (<span id="cart-drawer-count">0</span>)</h3>
+            <button class="cart-close" id="cart-close" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="cart-drawer-body" id="cart-drawer-body">
+            <p class="cart-empty">Your bag is empty.</p>
+        </div>
+        <div class="cart-drawer-footer">
+            <div class="cart-subtotal">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">₹0</span>
+            </div>
+            <button class="cart-checkout-btn">Proceed to Checkout</button>
+            <p class="cart-note">Shipping & taxes calculated at checkout</p>
+        </div>
+    </aside>
+
+    <!-- ====== QUICK VIEW MODAL ====== -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="quick-view-modal" id="quick-view-modal" role="dialog" aria-modal="true">
+            <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+            <div class="modal-image">
+                <img id="modal-img" src="" alt="Product">
+            </div>
+            <div class="modal-details">
+                <span class="modal-tag" id="modal-tag"></span>
+                <h3 id="modal-name"></h3>
+                <div class="modal-price">
+                    <span class="price-current" id="modal-price"></span>
+                    <span class="price-original" id="modal-original"></span>
+                    <span class="price-discount" id="modal-discount"></span>
+                </div>
+                <p class="modal-desc">Crafted for Indian bodies with premium fabric and detailing. Tailored fit, all-day comfort, made to last.</p>
+                <div class="modal-sizes" id="modal-sizes"></div>
+                <button class="product-add-btn modal-add" id="modal-add">Add to Cart</button>
+                <ul class="modal-usps">
+                    <li>✓ 7-day hassle-free exchange</li>
+                    <li>✓ Free shipping above ₹999</li>
+                    <li>✓ Cash on delivery available</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== SEARCH OVERLAY ====== -->
+    <div class="search-overlay" id="search-overlay">
+        <div class="search-box">
+            <button class="search-close" id="search-close" aria-label="Close search">&times;</button>
+            <h3>Search Products</h3>
+            <input type="text" id="search-input" placeholder="Search kurtas, sherwanis, jackets..." autocomplete="off">
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </div>
+
+    <!-- ====== BACK TO TOP ====== -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
+    <!-- ====== TOAST NOTIFICATION ====== -->
+    <div class="toast" id="toast"></div>
 
     <script src="js/main.js"></script>
 </body>

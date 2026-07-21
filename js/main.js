@@ -22,15 +22,9 @@ const products = [
     { name: "Scarlet Floral Festive Kurta", price: 2599, originalPrice: 3899, tag: "bestseller", category: "topwear", image: "images/products/product-18.jpg" },
 ];
 
-// Women's Edit Product Data
-const womenProducts = [
-    { name: "Marigold Polka Cotton Saree", price: 2499, originalPrice: 3799, tag: "bestseller", image: "images/products/women-1.jpg" },
-    { name: "Sunflower Handloom Saree", price: 2799, originalPrice: 4199, tag: "new", image: "images/products/women-2.jpg" },
-    { name: "Emerald Silk Saree", price: 3499, originalPrice: 4999, tag: "bestseller", image: "images/products/women-3.jpg" },
-    { name: "Ivory Floral Festive Saree", price: 3299, originalPrice: 4799, tag: "new", image: "images/products/women-4.jpg" },
-    { name: "Monochrome Printed Saree", price: 2299, originalPrice: 3499, tag: "deal", image: "images/products/women-5.jpg" },
-    { name: "Golden Blossom Saree", price: 2999, originalPrice: 4499, tag: "bestseller", image: "images/products/women-6.jpg" },
-];
+// Cart & Wishlist state
+let cart = [];          // array of { index, qty }
+let wishlist = [];      // array of product indices
 
 // DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,10 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initHeader();
     renderProducts('all');
-    renderWomenProducts();
     initProductScroll();
     initShopByTabs();
     initCounterAnimation();
+    initCart();
+    initQuickView();
+    initSearch();
+    initBackToTop();
+    initScrollReveal();
+    initNewsletter();
 });
 
 // ====== ANNOUNCEMENT BAR ROTATION (Cava style with pause/play) ======
@@ -167,14 +166,20 @@ function renderProducts(category) {
     const filtered = category === 'all' ? products : products.filter(p => p.category === category);
 
     grid.innerHTML = filtered.map(product => {
+        const idx = products.indexOf(product);
         const discount = Math.round((1 - product.price / product.originalPrice) * 100);
+        const wished = wishlist.includes(idx) ? 'active' : '';
         return `
-            <div class="product-card" data-category="${product.category}">
+            <div class="product-card" data-category="${product.category}" data-index="${idx}">
                 <span class="product-tag ${product.tag}">${getTagLabel(product.tag)}</span>
                 <div class="product-discount-badge">${discount}% Off</div>
-                <div class="product-image">
+                <button class="wishlist-btn ${wished}" data-index="${idx}" aria-label="Add to wishlist">
+                    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </button>
+                <div class="product-image" data-quickview="${idx}">
                     <img src="${product.image}" alt="${product.name}" loading="lazy"
                          onerror="this.parentElement.style.background='linear-gradient(135deg, #f8f6f3, #e8e4df)'; this.style.display='none';">
+                    <span class="quick-view-hint">Quick View</span>
                 </div>
                 <div class="product-info">
                     <p class="product-name">${product.name}</p>
@@ -190,21 +195,41 @@ function renderProducts(category) {
                         <button class="size-btn">XXL</button>
                     </div>
                     <div class="product-actions">
-                        <button class="product-add-btn">Add to Cart</button>
-                        <button class="product-quick-view">Quick View</button>
+                        <button class="product-add-btn" data-index="${idx}">Add to Cart</button>
+                        <button class="product-quick-view" data-quickview="${idx}">Quick View</button>
                     </div>
                 </div>
             </div>
         `;
     }).join('');
 
-    // Add size button interactivity
+    wireProductCards(grid);
+}
+
+// Wire up interactivity on rendered product cards
+function wireProductCards(grid) {
     grid.querySelectorAll('.product-card').forEach(card => {
+        // size selection
         card.querySelectorAll('.size-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 card.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
             });
+        });
+    });
+    // add to cart
+    grid.querySelectorAll('.product-add-btn').forEach(btn => {
+        btn.addEventListener('click', () => addToCart(parseInt(btn.dataset.index)));
+    });
+    // quick view (image or button)
+    grid.querySelectorAll('[data-quickview]').forEach(el => {
+        el.addEventListener('click', () => openQuickView(parseInt(el.dataset.quickview)));
+    });
+    // wishlist
+    grid.querySelectorAll('.wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleWishlist(parseInt(btn.dataset.index), btn);
         });
     });
 }
@@ -217,53 +242,6 @@ function getTagLabel(tag) {
         'sold-out': 'Sold Out'
     };
     return labels[tag] || tag;
-}
-
-// ====== RENDER WOMEN'S EDIT PRODUCTS ======
-function renderWomenProducts() {
-    const grid = document.getElementById('women-grid');
-    if (!grid) return;
-
-    grid.innerHTML = womenProducts.map(product => {
-        const discount = Math.round((1 - product.price / product.originalPrice) * 100);
-        return `
-            <div class="product-card">
-                <span class="product-tag ${product.tag}">${getTagLabel(product.tag)}</span>
-                <div class="product-discount-badge">${discount}% Off</div>
-                <div class="product-image">
-                    <img src="${product.image}" alt="${product.name}" loading="lazy"
-                         onerror="this.parentElement.style.background='linear-gradient(135deg, #f8f6f3, #e8e4df)'; this.style.display='none';">
-                </div>
-                <div class="product-info">
-                    <p class="product-name">${product.name}</p>
-                    <div class="product-price">
-                        <span class="price-original">MRP ₹${product.originalPrice.toLocaleString()}</span>
-                        <span class="price-current">₹${product.price.toLocaleString()}</span>
-                    </div>
-                    <div class="product-sizes">
-                        <button class="size-btn">XS</button>
-                        <button class="size-btn">S</button>
-                        <button class="size-btn active">M</button>
-                        <button class="size-btn">L</button>
-                        <button class="size-btn">XL</button>
-                    </div>
-                    <div class="product-actions">
-                        <button class="product-add-btn">Add to Cart</button>
-                        <button class="product-quick-view">Quick View</button>
-                    </div>
-                </div>
-            </div>
-        `;
-    }).join('');
-
-    grid.querySelectorAll('.product-card').forEach(card => {
-        card.querySelectorAll('.size-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                card.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-    });
 }
 
 // ====== PRODUCT SCROLL BUTTONS (handles all product carousels) ======
@@ -345,4 +323,251 @@ function animateCounter(el, target) {
     }
 
     requestAnimationFrame(update);
+}
+
+
+// ====== TOAST NOTIFICATION ======
+let toastTimer;
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ====== CART ======
+function initCart() {
+    const cartBtn = document.getElementById('cart-btn');
+    const closeBtn = document.getElementById('cart-close');
+    const overlay = document.getElementById('drawer-overlay');
+
+    if (cartBtn) cartBtn.addEventListener('click', openCart);
+    if (closeBtn) closeBtn.addEventListener('click', closeCart);
+    if (overlay) overlay.addEventListener('click', closeCart);
+    renderCart();
+}
+
+function addToCart(index) {
+    const existing = cart.find(item => item.index === index);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ index, qty: 1 });
+    }
+    renderCart();
+    showToast(`${products[index].name} added to bag`);
+    // pulse the cart count
+    const count = document.querySelector('.cart-count');
+    if (count) { count.classList.remove('pulse'); void count.offsetWidth; count.classList.add('pulse'); }
+}
+
+function removeFromCart(index) {
+    cart = cart.filter(item => item.index !== index);
+    renderCart();
+}
+
+function changeQty(index, delta) {
+    const item = cart.find(i => i.index === index);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) removeFromCart(index);
+    else renderCart();
+}
+
+function renderCart() {
+    const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+    const subtotal = cart.reduce((s, i) => s + products[i.index].price * i.qty, 0);
+
+    document.querySelectorAll('.cart-count').forEach(el => el.textContent = totalItems);
+    const drawerCount = document.getElementById('cart-drawer-count');
+    if (drawerCount) drawerCount.textContent = totalItems;
+    const sub = document.getElementById('cart-subtotal');
+    if (sub) sub.textContent = '₹' + subtotal.toLocaleString();
+
+    const body = document.getElementById('cart-drawer-body');
+    if (!body) return;
+    if (cart.length === 0) {
+        body.innerHTML = '<p class="cart-empty">Your bag is empty.</p>';
+        return;
+    }
+    body.innerHTML = cart.map(item => {
+        const p = products[item.index];
+        return `
+            <div class="cart-item">
+                <img src="${p.image}" alt="${p.name}" onerror="this.style.background='#e8e4df'">
+                <div class="cart-item-info">
+                    <p class="cart-item-name">${p.name}</p>
+                    <p class="cart-item-price">₹${p.price.toLocaleString()}</p>
+                    <div class="cart-qty">
+                        <button class="qty-btn" data-dec="${item.index}">−</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" data-inc="${item.index}">+</button>
+                    </div>
+                </div>
+                <button class="cart-item-remove" data-remove="${item.index}" aria-label="Remove">&times;</button>
+            </div>
+        `;
+    }).join('');
+
+    body.querySelectorAll('[data-inc]').forEach(b => b.addEventListener('click', () => changeQty(parseInt(b.dataset.inc), 1)));
+    body.querySelectorAll('[data-dec]').forEach(b => b.addEventListener('click', () => changeQty(parseInt(b.dataset.dec), -1)));
+    body.querySelectorAll('[data-remove]').forEach(b => b.addEventListener('click', () => removeFromCart(parseInt(b.dataset.remove))));
+}
+
+function openCart() {
+    document.getElementById('cart-drawer').classList.add('open');
+    document.getElementById('drawer-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+    document.getElementById('cart-drawer').classList.remove('open');
+    document.getElementById('drawer-overlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ====== WISHLIST ======
+function toggleWishlist(index, btn) {
+    const pos = wishlist.indexOf(index);
+    if (pos === -1) {
+        wishlist.push(index);
+        btn.classList.add('active');
+        showToast(`${products[index].name} added to wishlist`);
+    } else {
+        wishlist.splice(pos, 1);
+        btn.classList.remove('active');
+        showToast('Removed from wishlist');
+    }
+}
+
+// ====== QUICK VIEW MODAL ======
+function initQuickView() {
+    const overlay = document.getElementById('modal-overlay');
+    const closeBtn = document.getElementById('modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', closeQuickView);
+    if (overlay) overlay.addEventListener('click', (e) => { if (e.target === overlay) closeQuickView(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeQuickView(); closeSearch(); } });
+}
+
+function openQuickView(index) {
+    const p = products[index];
+    const discount = Math.round((1 - p.price / p.originalPrice) * 100);
+    document.getElementById('modal-img').src = p.image;
+    document.getElementById('modal-img').alt = p.name;
+    document.getElementById('modal-name').textContent = p.name;
+    document.getElementById('modal-price').textContent = '₹' + p.price.toLocaleString();
+    document.getElementById('modal-original').textContent = 'MRP ₹' + p.originalPrice.toLocaleString();
+    document.getElementById('modal-discount').textContent = discount + '% off';
+    const tag = document.getElementById('modal-tag');
+    tag.textContent = getTagLabel(p.tag);
+    tag.className = 'modal-tag product-tag ' + p.tag;
+
+    const sizes = document.getElementById('modal-sizes');
+    sizes.innerHTML = ['S','M','L','XL','XXL'].map((s, i) =>
+        `<button class="size-btn ${i===2?'active':''}">${s}</button>`).join('');
+    sizes.querySelectorAll('.size-btn').forEach(b => b.addEventListener('click', () => {
+        sizes.querySelectorAll('.size-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+    }));
+
+    const addBtn = document.getElementById('modal-add');
+    addBtn.onclick = () => { addToCart(index); closeQuickView(); };
+
+    document.getElementById('modal-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+function closeQuickView() {
+    const o = document.getElementById('modal-overlay');
+    if (o) o.classList.remove('active');
+    if (!document.getElementById('cart-drawer').classList.contains('open')) document.body.style.overflow = '';
+}
+
+// ====== SEARCH ======
+function initSearch() {
+    const btn = document.getElementById('search-btn');
+    const close = document.getElementById('search-close');
+    const overlay = document.getElementById('search-overlay');
+    const input = document.getElementById('search-input');
+
+    if (btn) btn.addEventListener('click', openSearch);
+    if (close) close.addEventListener('click', closeSearch);
+    if (overlay) overlay.addEventListener('click', (e) => { if (e.target === overlay) closeSearch(); });
+    if (input) input.addEventListener('input', () => renderSearchResults(input.value));
+}
+
+function openSearch() {
+    document.getElementById('search-overlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('search-input').focus(), 100);
+    renderSearchResults('');
+}
+function closeSearch() {
+    const o = document.getElementById('search-overlay');
+    if (o) o.classList.remove('active');
+    if (!document.getElementById('cart-drawer').classList.contains('open')) document.body.style.overflow = '';
+}
+
+function renderSearchResults(query) {
+    const box = document.getElementById('search-results');
+    if (!box) return;
+    const q = query.trim().toLowerCase();
+    const matches = q === '' ? products.slice(0, 4)
+        : products.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+    if (matches.length === 0) {
+        box.innerHTML = '<p class="search-empty">No products found. Try "kurta", "sherwani" or "jacket".</p>';
+        return;
+    }
+    box.innerHTML = matches.map(p => {
+        const idx = products.indexOf(p);
+        return `
+            <div class="search-result-item" data-search="${idx}">
+                <img src="${p.image}" alt="${p.name}" onerror="this.style.background='#e8e4df'">
+                <div>
+                    <p class="search-result-name">${p.name}</p>
+                    <p class="search-result-price">₹${p.price.toLocaleString()}</p>
+                </div>
+            </div>`;
+    }).join('');
+    box.querySelectorAll('[data-search]').forEach(el => {
+        el.addEventListener('click', () => { closeSearch(); openQuickView(parseInt(el.dataset.search)); });
+    });
+}
+
+// ====== BACK TO TOP ======
+function initBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 600);
+    });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+// ====== SCROLL REVEAL ======
+function initScrollReveal() {
+    const els = document.querySelectorAll('.reveal, .categories-section, .products-section, .lookbook-section, .heroes-section, .why-section, .facts-section');
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); }
+        });
+    }, { threshold: 0.1 });
+    els.forEach(el => { el.classList.add('reveal'); io.observe(el); });
+}
+
+// ====== NEWSLETTER ======
+function initNewsletter() {
+    const form = document.getElementById('newsletter-form');
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = form.querySelector('input');
+        const email = input.value.trim();
+        if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            input.value = '';
+            showToast('Thanks for subscribing! 🎉');
+        } else {
+            showToast('Please enter a valid email address');
+        }
+    });
 }
