@@ -2,21 +2,21 @@
 
 // Product Data
 const products = [
-    { name: "Classic Linen Kurta", price: 1499, originalPrice: 2499, tag: "bestseller", category: "topwear", image: "images/products/product-1.svg" },
-    { name: "Festive Silk Sherwani", price: 4999, originalPrice: 7999, tag: "new", category: "topwear", image: "images/products/product-2.svg" },
-    { name: "Everyday Cotton Shirt", price: 999, originalPrice: 1599, tag: "deal", category: "topwear", image: "images/products/product-3.svg" },
-    { name: "Comfort Fit Chinos", price: 1299, originalPrice: 1999, tag: "bestseller", category: "bottomwear", image: "images/products/product-4.svg" },
-    { name: "Wedding Embroidered Kurta", price: 3999, originalPrice: 5999, tag: "new", category: "topwear", image: "images/products/product-5.svg" },
-    { name: "Nehru Jacket - Navy", price: 2499, originalPrice: 3999, tag: "bestseller", category: "outerwear", image: "images/products/product-6.svg" },
-    { name: "Relaxed Palazzo Pants", price: 1199, originalPrice: 1799, tag: "deal", category: "bottomwear", image: "images/products/product-7.svg" },
-    { name: "Mandarin Collar Shirt", price: 1399, originalPrice: 2199, tag: "new", category: "topwear", image: "images/products/product-8.svg" },
-    { name: "Bandhgala Blazer", price: 5499, originalPrice: 8999, tag: "bestseller", category: "outerwear", image: "images/products/product-9.svg" },
-    { name: "Printed Ethnic Kurta", price: 1799, originalPrice: 2799, tag: "deal", category: "topwear", image: "images/products/product-10.svg" },
-    { name: "Dhoti Pants - Cream", price: 999, originalPrice: 1499, tag: "new", category: "bottomwear", image: "images/products/product-11.svg" },
-    { name: "Brocade Waistcoat", price: 2999, originalPrice: 4499, tag: "bestseller", category: "outerwear", image: "images/products/product-12.svg" },
-    { name: "Summer Cotton Kurta Set", price: 2199, originalPrice: 3499, tag: "new", category: "topwear", image: "images/products/product-13.svg" },
-    { name: "Slim Fit Trouser - Black", price: 1499, originalPrice: 2299, tag: "deal", category: "bottomwear", image: "images/products/product-14.svg" },
-    { name: "Lightweight Linen Jacket", price: 3299, originalPrice: 4999, tag: "bestseller", category: "outerwear", image: "images/products/product-15.svg" },
+    { name: "Slate Grey Cotton Kurta", price: 1499, originalPrice: 2499, tag: "bestseller", category: "topwear", image: "images/products/product-1.jpg" },
+    { name: "Ivory Embroidered Sherwani", price: 6999, originalPrice: 9999, tag: "new", category: "topwear", image: "images/products/product-2.jpg" },
+    { name: "Sage Green Everyday Kurta", price: 1299, originalPrice: 1999, tag: "deal", category: "topwear", image: "images/products/product-3.jpg" },
+    { name: "Teal Blue Kurta Set", price: 1899, originalPrice: 2799, tag: "bestseller", category: "topwear", image: "images/products/product-4.jpg" },
+    { name: "Black Sequined Festive Kurta", price: 3499, originalPrice: 4999, tag: "new", category: "topwear", image: "images/products/product-5.jpg" },
+    { name: "Rose Nehru Jacket Set", price: 4499, originalPrice: 6499, tag: "bestseller", category: "outerwear", image: "images/products/product-6.jpg" },
+    { name: "Golden Silk Kurta", price: 2999, originalPrice: 4499, tag: "deal", category: "topwear", image: "images/products/product-7.jpg" },
+    { name: "Crimson Bandhani Kurta", price: 1799, originalPrice: 2699, tag: "new", category: "topwear", image: "images/products/product-8.jpg" },
+    { name: "Copper Zari Kurta Set", price: 3299, originalPrice: 4999, tag: "bestseller", category: "topwear", image: "images/products/product-9.jpg" },
+    { name: "Mustard Printed Kurta", price: 1699, originalPrice: 2499, tag: "deal", category: "topwear", image: "images/products/product-10.jpg" },
+    { name: "Ivory Cotton Pyjama Set", price: 1199, originalPrice: 1799, tag: "new", category: "bottomwear", image: "images/products/product-11.jpg" },
+    { name: "Brocade Waistcoat Set", price: 3999, originalPrice: 5999, tag: "bestseller", category: "outerwear", image: "images/products/product-12.jpg" },
+    { name: "Crimson Bloom Festive Kurta", price: 2499, originalPrice: 3799, tag: "new", category: "topwear", image: "images/products/product-13.jpg" },
+    { name: "Amber Brocade Kurta", price: 2799, originalPrice: 3999, tag: "deal", category: "topwear", image: "images/products/product-14.jpg" },
+    { name: "Golden Brocade Bandhgala", price: 5499, originalPrice: 7999, tag: "bestseller", category: "outerwear", image: "images/products/product-15.jpg" },
 ];
 
 // DOM Ready

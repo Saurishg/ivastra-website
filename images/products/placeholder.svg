@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="533" viewBox="0 0 400 533">
-  <rect fill="#f8f6f3" width="400" height="533"/>
-  <rect fill="#e8e4df" x="120" y="150" width="160" height="200" rx="8"/>
-  <circle fill="#c9a96e" cx="200" cy="220" r="30" opacity="0.5"/>
-  <text x="200" y="400" text-anchor="middle" fill="#888" font-family="Inter, sans-serif" font-size="14">iVastra Product</text>
-</svg>
